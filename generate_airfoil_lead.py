@@ -83,15 +83,27 @@ yt=np.zeros(n)
 theta=np.zeros(n)
 
 for i,xi in enumerate(x):
-	yt[i]=5*t*(0.2969*np.sqrt(xi)-0.1260*xi-0.3516*xi**2+0.2843*xi**3-0.1036*xi**4)
+	x_bar=xi/c
+	yt[i]=5*t*c*(0.2969*np.sqrt(x_bar)-0.1260*x_bar-0.3516*x_bar**2+0.2843*x_bar**3-0.1036*x>
 
-	if xi <= p*c:
-		yc[i]=(m/(p**2))*(2*p*xi-xi**2)
-		dyc_dx=(m/p**2)*(2*p-2*xi)
+	if x_bar <= p:
+		yc[i]=c*(m/(p**2))*(2*p*x_bar-x_bar**2)
+		dyc_dx=(m/p**2)*(2*p-2*x_bar)
 	else:
-		yc[i]=(m/((1-p)**2))*((1-2*p)+2*p*xi-xi**2)
-		dyc_dx=(m/(1-p)**2)*(2*p-2*xi)
+		yc[i]=c*(m/((1-p)**2))*((1-2*p)+2*p*x_bar-x_bar**2)
+		dyc_dx=(m/(1-p)**2)*(2*p-2*x_bar)
 	theta[i]=np.arctan(dyc_dx)
+
+
+	#yt[i]=5*t*(0.2969*np.sqrt(xi)-0.1260*xi-0.3516*xi**2+0.2843*xi**3-0.1036*xi**4)
+
+	#if xi <= p*c:
+	#	yc[i]=(m/(p**2))*(2*p*xi-xi**2)
+	#	dyc_dx=(m/p**2)*(2*p-2*xi)
+	#else:
+	#	yc[i]=(m/((1-p)**2))*((1-2*p)+2*p*xi-xi**2)
+	#	dyc_dx=(m/(1-p)**2)*(2*p-2*xi)
+	#theta[i]=np.arctan(dyc_dx)
 
 xu=x-yt*np.sin(theta)
 yu=yc+yt*np.cos(theta)
